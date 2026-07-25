@@ -5,19 +5,15 @@
   <title>Happy Birthday Sindhu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Global Styles */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ffb6c1, #dda0dd, #ffd700);
+      background: radial-gradient(circle at top left, #ffb6c1, #dda0dd, #ffd700);
       overflow-x: hidden;
       color: #fff;
       scroll-behavior: smooth;
     }
-    h1, h2, h3, p {
-      margin: 0;
-      padding: 0;
-    }
+    h1, h2, h3, p { margin: 0; padding: 0; }
     button {
       cursor: pointer;
       border: none;
@@ -29,10 +25,7 @@
       color: #fff;
       transition: all 0.3s ease;
     }
-    button:hover {
-      background: rgba(255,255,255,0.4);
-      transform: scale(1.05);
-    }
+    button:hover { background: rgba(255,255,255,0.4); transform: scale(1.05); }
 
     /* Welcome Screen */
     #welcome {
@@ -43,30 +36,18 @@
       align-items: center;
       text-align: center;
     }
-    #welcome h1 {
-      font-size: 2.5em;
-      animation: glow 2s infinite alternate;
-    }
-    #welcome h2 {
-      margin-top: 15px;
-      font-size: 1.2em;
-      opacity: 0.8;
-    }
+    #welcome h1 { font-size: 2.5em; animation: glow 2s infinite alternate; }
+    #welcome h2 { margin-top: 15px; font-size: 1.2em; opacity: 0.8; }
     @keyframes glow {
       from { text-shadow: 0 0 10px #ff69b4; }
       to { text-shadow: 0 0 30px #ffd700; }
     }
 
     /* Surprise Section */
-    #surprise {
-      display: none;
-      padding: 50px 20px;
-      text-align: center;
-    }
+    #surprise { display: none; padding: 50px 20px; text-align: center; }
     .photo-frame {
       margin: 20px auto;
-      width: 200px;
-      height: 200px;
+      width: 200px; height: 200px;
       border-radius: 50%;
       overflow: hidden;
       position: relative;
@@ -74,57 +55,40 @@
       animation: zoom 6s infinite alternate;
     }
     .photo-frame img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       filter: blur(0.5px);
     }
-    @keyframes zoom {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
-    }
+    @keyframes zoom { from { transform: scale(1); } to { transform: scale(1.05); } }
 
-    /* Typewriter Message */
     #message {
       margin-top: 30px;
       font-size: 1.2em;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: auto; margin-right: auto;
       white-space: pre-wrap;
       border-radius: 15px;
       padding: 20px;
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
     }
+    #countdown { margin-top: 30px; font-size: 1.5em; font-weight: bold; }
 
-    /* Countdown */
-    #countdown {
-      margin-top: 30px;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    /* Cake */
     .cake {
       margin: 40px auto;
-      width: 150px;
-      height: 100px;
+      width: 150px; height: 100px;
       background: pink;
       border-radius: 10px;
       position: relative;
     }
     .candle {
-      width: 10px;
-      height: 40px;
+      width: 10px; height: 40px;
       background: #fff;
       margin: 0 auto;
-      position: relative;
-      top: -40px;
+      position: relative; top: -40px;
     }
     .flame {
-      width: 15px;
-      height: 15px;
+      width: 15px; height: 15px;
       background: orange;
       border-radius: 50%;
       margin: 0 auto;
@@ -135,32 +99,34 @@
       to { transform: scale(1.2); opacity: 0.7; }
     }
 
-    /* Gift Box */
     .gift-box {
       margin: 40px auto;
-      width: 100px;
-      height: 100px;
+      width: 100px; height: 100px;
       background: purple;
       position: relative;
       animation: bounce 2s infinite;
     }
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    #final { display: none; text-align: center; padding: 50px 20px; }
+    #final h2 { font-size: 2em; animation: glow 2s infinite alternate; }
+
+    /* Background Animations */
+    .heart, .petal, .star {
+      position: fixed;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      animation: float 10s infinite linear;
+      opacity: 0.7;
+    }
+    .heart { background: pink; }
+    .petal { background: red; border-radius: 50% 50% 50% 0; }
+    .star { background: yellow; }
+    @keyframes float {
+      from { transform: translateY(-20px); }
+      to { transform: translateY(100vh); }
     }
 
-    /* Final Section */
-    #final {
-      display: none;
-      text-align: center;
-      padding: 50px 20px;
-    }
-    #final h2 {
-      font-size: 2em;
-      animation: glow 2s infinite alternate;
-    }
-
-    /* Responsive */
     @media(max-width:600px){
       #welcome h1 { font-size: 1.8em; }
       .photo-frame { width: 150px; height: 150px; }
@@ -169,109 +135,156 @@
 </head>
 <body>
 
-  <!-- Welcome Screen -->
   <section id="welcome">
     <h1>🎉 Happy Birthday Sindhu 🎉</h1>
     <h2>A small surprise made with lots of wishes.</h2>
     <button onclick="openSurprise()">Open Surprise</button>
   </section>
 
-  <!-- Surprise Section -->
   <section id="surprise">
     <div class="photo-frame">
       <img src="assets/sindhu.jpg" alt="Sindhu">
     </div>
-
-    <!-- Typewriter Message -->
     <div id="message"></div>
-
-    <!-- Countdown -->
     <div id="countdown"></div>
-
-    <!-- Cake -->
     <div class="cake">
-      <div class="candle">
-        <div class="flame" id="flame"></div>
-      </div>
+      <div class="candle"><div class="flame" id="flame"></div></div>
     </div>
     <button onclick="blowCandles()">Blow Candles</button>
-
-    <!-- Gift Box -->
     <div class="gift-box" onclick="openGift()"></div>
-
-    <!-- Music Player -->
     <div style="margin-top:20px;">
       <audio id="music" src="assets/music.mp3"></audio>
       <button onclick="toggleMusic()">Play/Pause Music</button>
     </div>
   </section>
 
-  <!-- Final Section -->
   <section id="final">
     <h2>Once Again, Happy Birthday Sindhu ❤️</h2>
   </section>
 
   <script>
-    // Open Surprise
-    function openSurprise(){
-      document.getElementById('welcome').style.display='none';
-      document.getElementById('surprise').style.display='block';
+    function openSurprise() {
+      document.getElementById("welcome").style.display = "none";
+      document.getElementById("surprise").style.display = "block";
       fireworks();
       typeWriter();
       countdown();
+      backgroundDecor();
     }
 
-    // Typewriter Effect
     const text = "Happiest Birthday to the most beautiful girl from the known person. ❤️ May your life always be filled with happiness, success, beautiful memories, and endless smiles. May all your dreams come true. Stay happy, stay blessed, and keep smiling forever. Happy Birthday, Sindhu! 🎂✨";
-    let i=0;
-    function typeWriter(){
-      if(i<text.length){
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
         document.getElementById("message").innerHTML += text.charAt(i);
         i++;
-        setTimeout(typeWriter,50);
+        setTimeout(typeWriter, 50);
       }
     }
 
-    // Countdown
-    function countdown(){
+    function countdown() {
       const birthday = new Date("August 22, 2026 00:00:00").getTime();
-      const x = setInterval(function(){
+      const x = setInterval(function () {
         const now = new Date().getTime();
         const distance = birthday - now;
-        if(distance<0){
+        if (distance < 0) {
           clearInterval(x);
-          document.getElementById("countdown").innerHTML="Happy Birthday Sindhu! 🎉";
+          document.getElementById("countdown").innerHTML = "Happy Birthday Sindhu! 🎉";
         } else {
-          const days = Math.floor(distance/(1000*60*60*24));
-          const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-          const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-          const seconds = Math.floor((distance%(1000*60))/1000);
-          document.getElementById("countdown").innerHTML=days+"d "+hours+"h "+minutes+"m "+seconds+"s ";
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          document.getElementById("countdown").innerHTML =
+            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
         }
-      },1000);
+      }, 1000);
     }
 
-    // Blow Candles
-    function blowCandles(){
-      document.getElementById("flame").style.display="none";
+    function blowCandles() {
+      document.getElementById("flame").style.display = "none";
       fireworks();
     }
 
-    // Gift Box
-    function openGift(){
+    function openGift() {
       alert("🎁 Happiest Birthday to the most beautiful girl from the known person ❤️");
+      document.getElementById("final").style.display = "block";
     }
 
-    // Music
-    function toggleMusic(){
-      const music=document.getElementById("music");
-      if(music.paused){ music.play(); } else { music.pause(); }
+        function toggleMusic() {
+      const music = document.getElementById("music");
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
     }
 
-    // Fireworks (simple canvas effect)
-    function fireworks(){
-      const canvas=document.createElement("canvas");
-      canvas.style.position="fixed";
-      canvas.style.top=0;
-      canvas.style.left=0;
-      canvas
+    // Fireworks + Confetti
+    function fireworks() {
+      const canvas = document.createElement("canvas");
+      canvas.style.position = "fixed";
+      canvas.style.top = 0;
+      canvas.style.left = 0;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext("2d");
+
+      const particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
+          color: `hsl(${Math.random() * 360},100%,50%)`,
+          life: 100
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life--;
+        });
+        if (particles.some(p => p.life > 0)) {
+          requestAnimationFrame(animate);
+        } else {
+          document.body.removeChild(canvas);
+        }
+      }
+      animate();
+    }
+
+    // Background floating hearts, petals, stars
+    function backgroundDecor() {
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+        document.body.appendChild(heart);
+
+        const petal = document.createElement("div");
+        petal.className = "petal";
+        petal.style.left = Math.random() * 100 + "vw";
+        petal.style.animationDuration = 5 + Math.random() * 5 + "s";
+        document.body.appendChild(petal);
+
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.animationDuration = 5 + Math.random() * 5 + "s";
+        document.body.appendChild(star);
+      }
+    }
+  </script>
+</body>
+</html>
