@@ -131,6 +131,28 @@
       #welcome h1 { font-size: 1.8em; }
       .photo-frame { width: 150px; height: 150px; }
     }
+    <!-- Ending Section -->
+<section id="ending">
+  <div class="night-sky"></div>
+  <div class="heart-tree">
+    <div class="trunk"></div>
+    <div class="hearts"></div>
+  </div>
+
+  <div class="floating-message" id="endingMessage">
+    No matter where life takes us, you'll always have a special place in my heart. 🌸❤️ 
+    Happy Birthday, Sindhu! May your smile always shine brighter than the stars.
+  </div>
+
+  <div class="signature">Made with 💗💗</div>
+
+  <!-- Optional music controls -->
+  <audio id="endingMusic" controls>
+    <source src="assets/music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</section>
+
   </style>
 </head>
 <body>
@@ -178,6 +200,88 @@
   100% {
     transform: translateY(110vh) rotate(360deg);
   }
+}
+/* Night sky background */
+#ending {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(ellipse at bottom, #0d1b2a, #000);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Twinkling stars */
+.night-sky::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  animation: twinkle 10s infinite;
+}
+@keyframes twinkle {
+  0%,100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+/* Heart tree trunk */
+.trunk {
+  width: 30px;
+  height: 150px;
+  background: #5c3d2e;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+/* Heart leaves */
+.hearts {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+.hearts::before {
+  content: "❤️";
+  font-size: 20px;
+  color: #ff4d6d;
+  position: absolute;
+  animation: glow 3s infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 5px #ff99cc; }
+  to { text-shadow: 0 0 20px #ff4d6d; }
+}
+
+/* Floating message */
+.floating-message {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 0 0 10px #ff99cc;
+  margin-top: 20px;
+  animation: fadeInText 8s forwards, floatText 6s infinite;
+}
+@keyframes fadeInText {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes floatText {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Signature */
+.signature {
+  font-size: 18px;
+  color: #fff;
+  opacity: 0;
+  animation: fadeIn 5s forwards;
+  margin-top: 20px;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 
@@ -319,6 +423,45 @@ function backgroundDecor() {
         document.body.appendChild(star);
       }
     }
+    // Generate multiple hearts for the tree
+function generateHearts() {
+  const heartsContainer = document.querySelector(".hearts");
+  for (let i = 0; i < 200; i++) {
+    const heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.style.position = "absolute";
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.top = Math.random() * 100 + "%";
+    heart.style.fontSize = (10 + Math.random() * 20) + "px";
+    heart.style.color = Math.random() > 0.5 ? "#ff4d6d" : "#ff99cc";
+    heart.style.opacity = 0.7 + Math.random() * 0.3;
+    heartsContainer.appendChild(heart);
+  }
+}
+
+// Floating particles (fireflies)
+function generateFireflies() {
+  for (let i = 0; i < 30; i++) {
+    const firefly = document.createElement("div");
+    firefly.className = "firefly";
+    firefly.style.position = "absolute";
+    firefly.style.left = Math.random() * window.innerWidth + "px";
+    firefly.style.top = Math.random() * window.innerHeight + "px";
+    firefly.style.width = "5px";
+    firefly.style.height = "5px";
+    firefly.style.borderRadius = "50%";
+    firefly.style.background = "yellow";
+    firefly.style.opacity = 0.8;
+    firefly.style.animation = `moveFirefly ${5 + Math.random() * 10}s infinite alternate`;
+    document.getElementById("ending").appendChild(firefly);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  generateHearts();
+  generateFireflies();
+});
+
   </script>
 </body>
 </html>
