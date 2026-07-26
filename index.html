@@ -161,6 +161,25 @@
   <section id="final">
     <h2>Once Again, Happy Birthday Sindhu ❤️</h2>
   </section>
+  .petal {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50% 50% 50% 0;
+  opacity: 0.8;
+  animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
 
   <script>
     function openSurprise() {
@@ -172,7 +191,7 @@
       backgroundDecor();
     }
 
-    const text = "Happiest Birthday to the most beautiful girl from the known person. ❤️ May your life always be filled with happiness, success, beautiful memories, and endless smiles. May all your dreams come true. Stay happy, stay blessed, and keep smiling forever. Happy Birthday, Sindhu! 🎂✨";
+    const text = "Happiest Birthday to the most beautiful girl i have never seen. ❤️ May your life always be filled with happiness, success, beautiful memories, goodluck and endless smiles. May all your dreams come true. Stay happy, stay blessed, and keep smiling forever. Happy Birthday, Sindhu! 🎂✨";
     let i = 0;
     function typeWriter() {
       if (i < text.length) {
@@ -213,7 +232,7 @@ if (birthday < now.getTime()) {
     }
 
     function openGift() {
-      alert("🎁 Happiest Birthday to the most beautiful girl from the known person ❤️");
+      alert("🎁 Happiest Birthday to the most beautiful girl i have never seen❤️");
       document.getElementById("final").style.display = "block";
     }
 
@@ -268,6 +287,15 @@ if (birthday < now.getTime()) {
       }
       animate();
     }
+function backgroundDecor() {
+  for (let i = 0; i < 20; i++) {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.style.left = Math.random() * 100 + "vw"; // random horizontal position
+    petal.style.animationDuration = 5 + Math.random() * 5 + "s"; // varied fall speed
+    document.body.appendChild(petal);
+  }
+}
 
     // Background floating hearts, petals, stars
     function backgroundDecor() {
