@@ -118,7 +118,12 @@
       line-height: 1.5;
       overflow: auto;
     }
-
+    .photo-gallery {
+  display: flex;
+  justify-content: center; /* centers the row */
+  gap: 20px;               /* space between photos */
+  flex-wrap: wrap;         /* allows wrapping on smaller screens */
+}
     .typed-line {
       opacity: 0;
       transform: translateY(6px);
@@ -144,12 +149,18 @@
     <h2>A small surprise made with lots of wishes.</h2>
     <button onclick="openSurprise()">Open Surprise</button>
   </section>
-
-  <section id="surprise" aria-live="polite">
+<section id="surprise">
+  <div class="photo-gallery">
     <div class="photo-frame">
       <img src="assets/sindhu.jpg" alt="Sindhu">
     </div>
-
+    <div class="photo-frame">
+      <img src="assets/friends.jpg" alt="Friends">
+    </div>
+    <div class="photo-frame">
+      <img src="assets/family.jpg" alt="Family">
+    </div>
+  </div>
     <div id="message"></div>
     <div id="countdown"></div>
 
