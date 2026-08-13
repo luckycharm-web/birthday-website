@@ -1,15 +1,22 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Happy Birthday Sindhu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A small birthday surprise for Sindhu" />
   <style>
+    :root{
+      --bg1: #ffb6c1;
+      --bg2: #dda0dd;
+      --accent: #ffd700;
+      --glass: rgba(255,255,255,0.08);
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top left, #ffb6c1, #dda0dd, #ffd700);
+      background: radial-gradient(circle at top left, var(--bg1), var(--bg2), var(--accent));
       overflow-x: hidden;
       color: #fff;
       scroll-behavior: smooth;
@@ -29,6 +36,12 @@
       transition: transform .18s ease, background .18s ease;
     }
     button:hover { transform: translateY(-3px); background: rgba(255,255,255,0.32); }
+    button:focus { outline: 3px solid rgba(255,255,255,0.6); outline-offset: 3px; }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
 
     /* Welcome Screen */
     #welcome {
@@ -70,7 +83,7 @@
       white-space: pre-wrap;
       border-radius: 12px;
       padding: 18px;
-      background: rgba(255,255,255,0.08);
+      background: var(--glass);
       backdrop-filter: blur(6px);
       color: #fff;
     }
@@ -106,7 +119,8 @@
     }
 
     .messageBox {
-      width: 720px;
+      max-width: 720px;
+      width: 100%;
       min-height: 320px;
       background: rgba(255,255,255,0.03);
       border-radius: 12px;
@@ -119,11 +133,11 @@
       overflow: auto;
     }
     .photo-gallery {
-  display: flex;
-  justify-content: center; /* centers the row */
-  gap: 20px;               /* space between photos */
-  flex-wrap: wrap;         /* allows wrapping on smaller screens */
-}
+      display: flex;
+      justify-content: center; /* centers the row */
+      gap: 20px;               /* space between photos */
+      flex-wrap: wrap;         /* allows wrapping on smaller screens */
+    }
     .typed-line {
       opacity: 0;
       transform: translateY(6px);
@@ -147,43 +161,42 @@
   <section id="welcome">
     <h1>🎉 Happiest Birthday Sindhu 🎉</h1>
     <h2>A small surprise made with lots of wishes.</h2>
-    <button onclick="openSurprise()">Open Surprise</button>
+    <button id="openBtn" aria-label="Open surprise" onclick="openSurprise()">Open Surprise</button>
   </section>
-<section id="surprise">
-  <div class="photo-gallery">
-    <div class="photo-frame">
-      <img src="assets/sindhu.jpg" alt="Sindhu">
+<section id="surprise" aria-hidden="true">
+  <div class="photo-gallery" role="list">
+    <div class="photo-frame" role="listitem">
+      <img src="assets/sindhu.jpg" alt="Sindhu smiling" loading="lazy" decoding="async" width="200" height="200">
     </div>
-    <div class="photo-frame">
-      <img src="assets/friends.jpg" alt="Friends">
+    <div class="photo-frame" role="listitem">
+      <img src="assets/friends.jpg" alt="Sindhu with friends" loading="lazy" decoding="async" width="200" height="200">
     </div>
-    <div class="photo-frame">
-      <img src="assets/family.jpg" alt="Family">
+    <div class="photo-frame" role="listitem">
+      <img src="assets/family.jpg" alt="Sindhu with family" loading="lazy" decoding="async" width="200" height="200">
     </div>
   </div>
-    <div id="message"></div>
-    <div id="countdown"></div>
+    <div id="message" aria-live="polite"></div>
+    <div id="countdown" aria-atomic="true"></div>
 
     <div class="cake">
       <div class="candle"><div class="flame" id="flame"></div></div>
     </div>
 
     <div style="display:flex; gap:12px; justify-content:center; align-items:center; margin-top:10px;">
-      <button onclick="blowCandles()">Blow Candles</button>
-      <button onclick="openGift()">Open Gift</button>
+      <button id="blowBtn" aria-label="Blow candles" onclick="blowCandles()">Blow Candles</button>
+      <button id="giftBtn" aria-label="Open gift" onclick="openGift()">Open Gift</button>
     </div>
 
     <div style="margin-top:18px;">
-      <audio id="music" src="assets/music.mp3"></audio>
-      <button onclick="toggleMusic()">Play/Pause Music</button>
+      <audio id="music" src="assets/music.mp3" preload="none" playsinline></audio>
+      <button id="musicBtn" aria-controls="music" aria-pressed="false" onclick="toggleMusic()">Play Music</button>
     </div>
   </section>
 
-  <section id="final" aria-live="polite">
+  <section id="final" aria-live="polite" aria-hidden="true">
     <h2>Once Again, Happiest Birthday Sindhu ❤️</h2>
 
     <div class="final-layout">
-      <!-- Single centered typed message box (placeholder removed) -->
       <div class="messageBox" id="messageBox" aria-label="Birthday message"></div>
     </div>
   </section>
@@ -191,22 +204,38 @@
   <script>
     /* ---------- Entry actions ---------- */
     function openSurprise() {
-      document.getElementById("welcome").style.display = "none";
-      document.getElementById("surprise").style.display = "block";
+      const welcome = document.getElementById('welcome');
+      const surprise = document.getElementById('surprise');
+      welcome.style.display = 'none';
+      surprise.style.display = 'block';
+      welcome.setAttribute('aria-hidden', 'true');
+      surprise.setAttribute('aria-hidden', 'false');
       backgroundDecor();
       typeWriter();
       countdown();
       fireworks();
+      // move focus to the message for screen readers
+      setTimeout(() => document.getElementById('message').focus?.(), 300);
     }
 
-    /* ---------- Typewriter for the main surprise message ---------- */
-    const text = " Happy Birthday to someone who always brings a bright smile to the people around them ❤️\n\nMay your life always be filled with happiness, success, beautiful memories, good luck and endless smiles. May all your dreams come true. Stay happy, stay blessed, and keep smiling forever. Happy Birthday, Sindhu! 🎂✨🦋";
+    /* ---------- Typewriter for the main surprise message (safe, multiline) ---------- */
+    const text = `Happy Birthday to someone who always brings a bright smile to the people around them ❤️
+
+May your life always be filled with happiness, success, beautiful memories, good luck and many wonderful surprises. Keep smiling, keep shining — you make the world a little brighter.`;
     let i = 0;
     function typeWriter() {
       const el = document.getElementById("message");
       if (!el) return;
+      // ensure the element is focusable for accessibility announcements
+      el.tabIndex = -1;
+
       if (i < text.length) {
-        el.innerHTML += text.charAt(i) === '\n' ? '<br/>' : text.charAt(i);
+        const ch = text.charAt(i);
+        if (ch === '\n') {
+          el.appendChild(document.createElement('br'));
+        } else {
+          el.appendChild(document.createTextNode(ch));
+        }
         i++;
         setTimeout(typeWriter, 30);
       }
@@ -222,18 +251,19 @@
       }
 
       const countdownEl = document.getElementById("countdown");
+      countdownEl.tabIndex = -1;
       const x = setInterval(function () {
         const nowT = new Date().getTime();
         const distance = birthday - nowT;
         if (distance < 0) {
           clearInterval(x);
-          countdownEl.innerHTML = "Happy Birthday Sindhu! 🎉";
+          countdownEl.textContent = "Happy Birthday Sindhu! 🎉";
         } else {
           const days = Math.floor(distance / (1000 * 60 * 60 * 24));
           const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+          countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
       }, 1000);
     }
@@ -246,59 +276,84 @@
       setTimeout(() => {
         document.getElementById("surprise").style.display = "none";
         document.getElementById("final").style.display = "block";
+        document.getElementById('surprise').setAttribute('aria-hidden', 'true');
+        document.getElementById('final').setAttribute('aria-hidden', 'false');
         startHeartTree();
         fireworks();
+        document.getElementById('messageBox').focus?.();
       }, 800);
     }
 
     /* ---------- Open gift: also reveal final text ---------- */
     function openGift() {
+      // Small friendly alert; kept for charm but can be removed
       alert("🎁 Happiest Birthday to the most beautiful girl I have never seen ❤️");
       document.getElementById("surprise").style.display = "none";
       document.getElementById("final").style.display = "block";
+      document.getElementById('surprise').setAttribute('aria-hidden', 'true');
+      document.getElementById('final').setAttribute('aria-hidden', 'false');
       startHeartTree();
+      document.getElementById('messageBox').focus?.();
     }
 
-    /* ---------- Music toggle ---------- */
+    /* ---------- Music toggle (updates aria-pressed and button label) ---------- */
     function toggleMusic() {
       const music = document.getElementById("music");
-      if (!music) return;
+      const btn = document.getElementById('musicBtn');
+      if (!music || !btn) return;
       if (music.paused) {
         music.play().catch(() => {});
+        btn.setAttribute('aria-pressed', 'true');
+        btn.textContent = 'Pause Music';
       } else {
         music.pause();
+        btn.setAttribute('aria-pressed', 'false');
+        btn.textContent = 'Play Music';
       }
     }
 
-    /* ---------- Simple fireworks/confetti canvas ---------- */
+    /* ---------- Simple fireworks/confetti canvas (handles devicePixelRatio & resize) ---------- */
     function fireworks() {
       const canvas = document.createElement("canvas");
       canvas.style.position = "fixed";
       canvas.style.top = 0;
       canvas.style.left = 0;
       canvas.style.pointerEvents = "none";
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.style.zIndex = 9999;
       document.body.appendChild(canvas);
       const ctx = canvas.getContext("2d");
 
-      const particles = [];
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 3;
-
-      for (let i = 0; i < 120; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 2 + Math.random() * 6;
-        particles.push({
-          x: centerX,
-          y: centerY,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          life: 60 + Math.floor(Math.random() * 60),
-          color: `hsl(${Math.random() * 360}, 90%, 60%)`,
-          size: 2 + Math.random() * 3
-        });
+      let dpr = window.devicePixelRatio || 1;
+      function resizeCanvas() {
+        dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const particles = [];
+      function initParticles() {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 3;
+        for (let i = 0; i < 120; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 2 + Math.random() * 6;
+          particles.push({
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 60 + Math.floor(Math.random() * 60),
+            color: `hsl(${Math.random() * 360}, 90%, 60%)`,
+            size: 2 + Math.random() * 3
+          });
+        }
+      }
+      initParticles();
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -316,7 +371,8 @@
         if (particles.some(p => p.life > 0)) {
           requestAnimationFrame(draw);
         } else {
-          document.body.removeChild(canvas);
+          window.removeEventListener('resize', resizeCanvas);
+          if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
         }
       }
       draw();
@@ -391,11 +447,11 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const welcomeVisible = document.getElementById('welcome').style.display !== 'none';
+        const welcome = document.getElementById('welcome');
+        const welcomeVisible = window.getComputedStyle(welcome).display !== 'none';
         if (welcomeVisible) openSurprise();
       }
     });
   </script>
 </body>
 </html>
-```
