@@ -220,7 +220,8 @@
 
     /* ---------- Typewriter for the main surprise message (safe, multiline) ---------- */
     const text = `Happy Birthday to someone who always brings a bright smile to the people around them ❤️
-
+    "From dorm rooms to real life. We made it. Happy birthday, friend!"
+you will remain my spl frnd ...
 May your life always be filled with happiness, success, beautiful memories, good luck and many wonderful surprises. Keep smiling, keep shining — you make the world a little brighter.`;
     let i = 0;
     function typeWriter() {
@@ -269,21 +270,32 @@ May your life always be filled with happiness, success, beautiful memories, good
     }
 
     /* ---------- Blow candles: hide flame and show final text (and fireworks) ---------- */
-    function blowCandles() {
-      const flame = document.getElementById("flame");
-      if (flame) flame.style.display = "none";
+function blowCandles() {
+  const flame = document.getElementById("flame");
+  if (flame) flame.style.display = "none";
 
-      setTimeout(() => {
-        document.getElementById("surprise").style.display = "none";
-        document.getElementById("final").style.display = "block";
-        document.getElementById('surprise').setAttribute('aria-hidden', 'true');
-        document.getElementById('final').setAttribute('aria-hidden', 'false');
-        startHeartTree();
-        fireworks();
-        document.getElementById('messageBox').focus?.();
-      }, 800);
+  setTimeout(() => {
+    document.getElementById("surprise").style.display = "none";
+    document.getElementById("final").style.display = "block";
+    startHeartTree();
+
+    // Auto-start background music
+    const music = document.getElementById("music");
+    const btn = document.getElementById("musicBtn");
+    if (music) {
+      music.play().then(() => {
+        if (btn) {
+          btn.setAttribute("aria-pressed", "true");
+          btn.textContent = "Pause Music";
+        }
+      }).catch(() => {
+        console.log("Autoplay blocked, user must press Play.");
+      });
     }
 
+    fireworks();
+  }, 800);
+}
     /* ---------- Open gift: also reveal final text ---------- */
     function openGift() {
       // Small friendly alert; kept for charm but can be removed
@@ -297,20 +309,23 @@ May your life always be filled with happiness, success, beautiful memories, good
     }
 
     /* ---------- Music toggle (updates aria-pressed and button label) ---------- */
-    function toggleMusic() {
-      const music = document.getElementById("music");
-      const btn = document.getElementById('musicBtn');
-      if (!music || !btn) return;
-      if (music.paused) {
-        music.play().catch(() => {});
-        btn.setAttribute('aria-pressed', 'true');
-        btn.textContent = 'Pause Music';
-      } else {
-        music.pause();
-        btn.setAttribute('aria-pressed', 'false');
-        btn.textContent = 'Play Music';
-      }
-    }
+ function toggleMusic() {
+  const music = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
+  if (!music || !btn) return;
+
+  if (music.paused) {
+    music.play().catch(() => {
+      console.log("Autoplay blocked, user must press Play.");
+    });
+    btn.setAttribute("aria-pressed", "true");
+    btn.textContent = "Pause Music";
+  } else {
+    music.pause();
+    btn.setAttribute("aria-pressed", "false");
+    btn.textContent = "Play Music";
+  }
+}
 
     /* ---------- Simple fireworks/confetti canvas (handles devicePixelRatio & resize) ---------- */
     function fireworks() {
@@ -391,7 +406,7 @@ May your life always be filled with happiness, success, beautiful memories, good
         "wink 😉",
         "Hope u have a great day, good health, lasting happiness, true peace, great success, and endless love.💗",
         " And finally --The world got a little luckier on the day you were born. Wishing you the best year ahead.",
-        "—🪄🦋🪐"
+        "—@charithaaaaaa"
       ];
 
       const box = document.getElementById("messageBox");
