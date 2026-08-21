@@ -135,7 +135,7 @@
     .photo-gallery {
       display: flex;
       justify-content: center; /* centers the row */
-      gap: 5px;               /* space between photos */
+      gap: 0px;               /* space between photos */
       flex-wrap: wrap;         /* allows wrapping on smaller screens */
     }
     .typed-line {
@@ -184,10 +184,7 @@
       <button id="blowBtn" aria-label="Blow candles" onclick="blowCandles()">Blow Candles</button>
       <button id="giftBtn" aria-label="Open gift" onclick="openGift()">Open Gift</button>
     </div>
-
     <div style="margin-top:18px;">
-      <audio id="music" src="assets/music.mp3" preload="none" playsinline></audio>
-      <button id="musicBtn" aria-controls="music" aria-pressed="false" onclick="toggleMusic()">Play Music</button>
     </div>
   </section>
 
