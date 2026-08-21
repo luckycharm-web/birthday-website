@@ -168,9 +168,7 @@
     <div class="photo-frame" role="listitem">
       <img src="assets/sindhu.jpg" alt="Sindhu smiling" loading="lazy" decoding="async" width="200" height="200">
     </div>
-    <div class="photo-frame" role="listitem">
-      <img src="assets/friends.jpg" alt="Sindhu with friends" loading="lazy" decoding="async" width="200" height="200">
-    </div>
+  
     <div class="photo-frame" role="listitem">
       <img src="assets/family.jpg" alt="Sindhu with family" loading="lazy" decoding="async" width="200" height="200">
     </div>
@@ -278,19 +276,7 @@ function blowCandles() {
     document.getElementById("surprise").style.display = "none";
     document.getElementById("final").style.display = "block";
     startHeartTree();
-
-    // Auto-start background music
-    const music = document.getElementById("music");
-    const btn = document.getElementById("musicBtn");
-    if (music) {
-      music.play().then(() => {
-        if (btn) {
-          btn.setAttribute("aria-pressed", "true");
-          btn.textContent = "Pause Music";
-        }
-      }).catch(() => {
-        console.log("Autoplay blocked, user must press Play.");
-      });
+  
     }
 
     fireworks();
@@ -308,24 +294,6 @@ function blowCandles() {
       document.getElementById('messageBox').focus?.();
     }
 
-    /* ---------- Music toggle (updates aria-pressed and button label) ---------- */
- function toggleMusic() {
-  const music = document.getElementById("music");
-  const btn = document.getElementById("musicBtn");
-  if (!music || !btn) return;
-
-  if (music.paused) {
-    music.play().catch(() => {
-      console.log("Autoplay blocked, user must press Play.");
-    });
-    btn.setAttribute("aria-pressed", "true");
-    btn.textContent = "Pause Music";
-  } else {
-    music.pause();
-    btn.setAttribute("aria-pressed", "false");
-    btn.textContent = "Play Music";
-  }
-}
 
     /* ---------- Simple fireworks/confetti canvas (handles devicePixelRatio & resize) ---------- */
     function fireworks() {
@@ -406,7 +374,7 @@ function blowCandles() {
         "wink 😉",
         "Hope u have a great day, good health, lasting happiness, true peace, great success, and endless love.💗",
         " And finally --The world got a little luckier on the day you were born. Wishing you the best year ahead.",
-        "—@charithaaaaaa"
+        "with love —@friend"
       ];
 
       const box = document.getElementById("messageBox");
